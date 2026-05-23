@@ -58,15 +58,15 @@
   --amber:#d97706;--amber-bg:#fef3c7;
   --radius:8px;--radius-lg:12px;
 }
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:13px;min-height:100vh}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:13px;min-height:100vh;-webkit-text-size-adjust:100%}
 
 /* NAV */
-.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:50}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:50;gap:8px}
 .topbar-left{display:flex;align-items:center;gap:12px}
 .logo{font-size:15px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px}
 .logo i{color:var(--sa);font-size:20px}
 .version-badge{font-size:10px;background:var(--sc-bg);color:var(--sc-t);padding:2px 8px;border-radius:20px;font-weight:500}
-.topbar-right{display:flex;align-items:center;gap:8px}
+.topbar-right{display:flex;align-items:center;gap:6px;flex-wrap:nowrap;min-width:0}
 .sync-status{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:5px}
 .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
 .sync-dot.syncing{background:var(--amber);animation:pulse 1s infinite}
@@ -74,7 +74,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
 /* TABS */
-.tabs{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;gap:0;overflow-x:auto}
+.tabs{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
 .tab{padding:12px 16px;font-size:13px;cursor:pointer;border-bottom:2px solid transparent;color:var(--text2);white-space:nowrap;display:flex;align-items:center;gap:6px;transition:color .15s}
 .tab:hover{color:var(--text)}
 .tab.active{color:var(--text);border-bottom-color:var(--sa);font-weight:500}
@@ -146,7 +146,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .filter-select{padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius);font-size:12px;background:var(--surface);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif}
 
 /* TABLE */
-.tbl-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg)}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg)}
 table{width:100%;border-collapse:collapse;font-size:12px}
 thead{display:table-header-group !important}
 
@@ -160,7 +160,7 @@ tbody tr:last-child td{border-bottom:none}
 
 /* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:flex;align-items:flex-start;justify-content:center;padding:30px 16px;overflow-y:auto}
-.modal{background:var(--surface);border-radius:var(--radius-lg);border:1px solid var(--border);width:680px;max-height:88vh;overflow-y:auto;padding:20px;margin-bottom:20px}
+.modal{background:var(--surface);border-radius:var(--radius-lg);border:1px solid var(--border);width:680px;max-height:88vh;overflow-y:auto;padding:20px;margin-bottom:20px;box-sizing:border-box}
 .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .modal-title{font-size:15px;font-weight:600;color:var(--text)}
 .form-section{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--text2);padding:10px 0 6px;border-top:1px solid var(--border);margin-top:4px}
@@ -211,11 +211,79 @@ textarea.form-input{resize:vertical;min-height:60px}
 .setup-num{width:20px;height:20px;border-radius:50%;background:#fbbf24;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
 
 /* RESPONSIVE */
+/* ── TABLET (≤900px) ── */
 @media(max-width:900px){
   .metrics-grid{grid-template-columns:repeat(2,1fr)}
   .charts-row{grid-template-columns:1fr}
-  .modal{width:100%;margin:0}
+  .modal{width:96%;margin:0 2%}
   .form-row,.form-row-3{grid-template-columns:1fr}
+  .topbar{padding:0 12px;height:50px}
+  .main{padding:12px 14px}
+  .tabs{padding:0 12px}
+  .tab{padding:8px 10px;font-size:12px}
+  .funnel-lbl{width:90px;font-size:10px}
+}
+
+/* ── MOBILE LANDSCAPE / SMALL TABLET (≤768px) ── */
+@media(max-width:768px){
+  .metrics-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .login-card{width:92%;padding:24px 20px}
+  .filter-bar{flex-direction:column;align-items:stretch}
+  .filter-bar .search-input,.filter-bar .filter-select{width:100%}
+  .tbl-wrap{font-size:11px}
+  th,td{padding:7px 6px}
+  .cell-clamp{max-width:90px}
+  .modal{width:100%;margin:0;border-radius:12px 12px 0 0;position:fixed;bottom:0;
+    max-height:92vh;border-bottom:none}
+  .modal-overlay{align-items:flex-end;padding:0}
+  .topbar-left .logo span{display:none}
+  .funnel-row{flex-wrap:wrap}
+  .funnel-lbl{width:100%;margin-bottom:2px}
+  .funnel-bar-bg{width:100%}
+}
+
+/* ── MOBILE PORTRAIT (≤480px) ── */
+@media(max-width:480px){
+  .metrics-grid{grid-template-columns:1fr 1fr;gap:6px}
+  .metric-card{padding:10px 10px}
+  .mc-val{font-size:18px}
+  .mc-label{font-size:9px}
+  .topbar{height:48px;padding:0 10px}
+  .logo{font-size:13px}
+  .logo img{height:28px !important}
+  .tabs{gap:0;padding:0 6px}
+  .tab{padding:8px 8px;font-size:11px;gap:3px}
+  .tab svg{width:12px;height:12px}
+  .main{padding:10px 10px}
+  .login-card{width:94%;padding:20px 16px;border-radius:12px}
+  .login-logo-title{font-size:18px}
+  .login-btn{font-size:13px;padding:10px}
+  .funnel-card{padding:10px}
+  .charts-row{gap:8px}
+  .chart-card{padding:10px}
+  .filter-bar{gap:6px}
+  .btn-icon{width:28px;height:28px}
+  th{font-size:9px;padding:6px 5px}
+  td{font-size:11px;padding:6px 5px}
+  .cell-clamp{max-width:70px}
+  .form-row,.form-row-3{grid-template-columns:1fr;gap:8px}
+  .modal{max-height:95vh}
+  .detail-grid{grid-template-columns:100px 1fr}
+  .user-badge>div:last-child>div:last-child{display:none}
+  /* Hide less important table columns on mobile */
+  .hide-mobile{display:none !important}
+  /* Stack topbar on very small screens */
+  #auth-btn span{display:none}
+  .version-badge{display:none}
+}
+
+/* ── LARGE DESKTOP (≥1400px) ── */
+@media(min-width:1400px){
+  .main{padding:20px 32px}
+  .metrics-grid{grid-template-columns:repeat(4,1fr);gap:16px}
+  .charts-row{gap:18px}
+  .metric-card{padding:16px 18px}
+  .mc-val{font-size:26px}
 }
 
 /* ── Login screen ── */
@@ -692,7 +760,7 @@ function renderDashboard(){
     const myStageD=myCases.filter(c=>c.stage==='D').length;
     personalBanner=`<div style="background:linear-gradient(135deg,#1d9e75,#185fa5);border-radius:var(--radius-lg);padding:16px 20px;margin-bottom:14px;color:#fff">
       <div style="font-size:13px;opacity:.8;margin-bottom:8px">👤 My performance — ${getFYLabel(getCurrentFY())}</div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px">
         <div style="background:rgba(255,255,255,.15);border-radius:8px;padding:10px 12px">
           <div style="font-size:10px;opacity:.75;text-transform:uppercase;letter-spacing:.5px">My pipeline</div>
           <div style="font-size:20px;font-weight:700;margin-top:3px">₹${myPipe.toFixed(1)} Cr</div>
